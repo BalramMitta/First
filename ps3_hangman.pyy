@@ -1,0 +1,65 @@
+import random
+import string
+#problem 1
+
+def isWordGuessed(word,letters):
+  for l in word:
+    if l not in letters:
+      return False
+  else:
+    return True
+  return False
+
+#problem 2
+
+def getGuessed(word,letters):
+  gw=''
+  for l in word:
+    if l not in letters:
+      gw+='_'
+    else:
+      gw+=l
+  return gw
+
+#problem 3
+
+def getAvailable(letters):
+  all=string.ascii_lowercase
+  avail=''
+  for l in all:
+    if l not in letters:
+      avail+=l
+  return avail
+  
+  #problem 4
+  
+def hangman(s_word):
+  print "Welcome..!\n I have a 4 letter secret word\n****************\n"
+  chances=5
+  g_letters=''
+  while True:
+    print "you have",chances," guessess left..\n"
+    print "Available letters : ",getAvailable(g_letters)
+    letter=raw_input('Guess letter : ')
+    if letter in g_letters:
+      g_letters+=letter
+      print "You already guessed it.....\n"
+    elif letter in s_word:
+      g_letters+=letter
+      print "Good guess : ",getGuessed(s_word,g_letters),"\n"
+      if isWordGuessed(s_word,g_letters):
+        print "Congratulations...You won!\n"
+        break
+    else:
+      chances-=1
+      print "Sorry..that's a wrong guess\n"
+      if chances==0:
+        print "No chances left.. You lost the Game\n"
+	break
+  
+  
+words=['play','walk','sing','ride','song','beat','kill','cost','rate','ring','push','grab','heat']
+
+hangman(random.choice(words))
+
+
